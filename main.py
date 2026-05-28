@@ -63,7 +63,7 @@ class Game:
 
         # Create the game window with specified dimensions
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-        pygame.display.set_caption("PyDew Valley: GAIC 25")  # Set window title
+        pygame.display.set_caption("PyDew Valley: GAIC 26")  # Set window title
 
         # Create a clock to control frame rate (how fast the game runs)
         self.clock = pygame.time.Clock()

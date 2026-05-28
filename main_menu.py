@@ -43,8 +43,8 @@ class MainMenu:
                 self.input_timer.activate()
 
     def display_main_menu(self):
-        # display the title: "PyDew Valley: GAIC 25" with double the font size
-        title_surf = self.title_font.render("PyDew Valley: GAIC 25", True, "White")
+        # display the title: "PyDew Valley: GAIC 26" with double the font size
+        title_surf = self.title_font.render("PyDew Valley: GAIC 26", True, "White")
         title_rect = title_surf.get_rect(center=(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4))
         self.display_surface.blit(title_surf, title_rect)
 
@@ -71,7 +71,7 @@ class MainMenu:
 
         # Credits content
         credits_text = [
-            "GatorAI Camp 2025",
+            "GatorAI Camp 2026",
             "",
             "Based on PyDew Valley",
             "Base code by: Christian Koch",
@@ -87,14 +87,14 @@ class MainMenu:
                     "Yellow"
                     if line
                     in [
-                        "GatorAI Camp 2025",
+                        "GatorAI Camp 2026",
                         "Game Development Team:",
                         "Special Thanks:",
                     ]
                     else "White"
                 )
                 font_size = (
-                    self.font if line != "GatorAI Camp 2025" else self.title_font
+                    self.font if line != "GatorAI Camp 2026" else self.title_font
                 )
                 text_surf = font_size.render(line, True, color)
                 text_rect = text_surf.get_rect(
@@ -125,6 +125,8 @@ class MainMenu:
         elif keys[pygame.K_RETURN]:
             if self.selected_index == 0:  # Start Game
                 self.start_game()
+                self.input_timer.activate()
+            elif self.selected_index == 1:  # Credits
                 self.state = "credits"
                 self.input_timer.activate()
             elif self.selected_index == 2:  # Options
