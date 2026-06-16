@@ -127,7 +127,7 @@ class AIDialogueManager:
 
         try:
             response = self.client.chat.completions.create(
-                model="llama-3.1-8b-instruct",
+                model="mistral-7b-instruct",
                 messages=[
                     {
                         "role": "system",
