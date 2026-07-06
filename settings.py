@@ -20,17 +20,17 @@ from pygame.math import Vector2
 # These control how big our game window is and how detailed the graphics are
 
 # @STUDENT-EDIT-Day1-3: Change the game window size
-SCREEN_WIDTH = 1280  # Width of game window in pixels
-SCREEN_HEIGHT = 720  # Height of game window in pixels
+SCREEN_WIDTH = 1280  # Width of game window in pixels (Default: 1280)
+SCREEN_HEIGHT = 720  # Height of game window in pixels (Default: 720)
 # @STUDENT-EDIT-Day1-2: Customize the game window title (TITLE)
-TITLE = "PyDew Valley: GAIC 26"
+TITLE = "PyDew Valley: GAIC 26"  # Game window title text (Default: "PyDew Valley: GAIC 26")
 # @STUDENT-EDIT-Day1-4: Experiment with different background colors
-WATER_COLOR = "#71ddee"  # Hex color code for the water background
-TILE_SIZE = 64  # Size of each tile in our game world (pixels)
+WATER_COLOR = "#71ddee"  # Hex color code for the water background (Default: "#71ddee")
+TILE_SIZE = 64  # Size of each tile in our game world (pixels) (Default: 64)
 
 # @STUDENT-EDIT-Day5-1: Customize the player name and greeting variables
-PLAYER_NAME = "Farmer"
-GREETING = "Hello there!"
+PLAYER_NAME = "Farmer"  # Name shown for the player (Default: "Farmer")
+GREETING = "Hello there!"  # Starter greeting text (Default: "Hello there!")
 
 # =============================================================================
 # USER INTERFACE POSITIONS
@@ -39,16 +39,16 @@ GREETING = "Hello there!"
 
 # Overlay positions for showing tools and seeds
 OVERLAY_POSITIONS = {
-    "tool": (40, SCREEN_HEIGHT - 15),  # Where to show current tool
-    "seed": (70, SCREEN_HEIGHT - 5),  # Where to show current seed
+    "tool": (40, SCREEN_HEIGHT - 15),  # Where to show current tool (Default: (40, SCREEN_HEIGHT - 15))
+    "seed": (70, SCREEN_HEIGHT - 5),  # Where to show current seed (Default: (70, SCREEN_HEIGHT - 5))
 }
 
 # Tool positioning offsets relative to player
 PLAYER_TOOL_OFFSET = {
-    "left": Vector2(-50, 40),  # Tool position when facing left
-    "right": Vector2(50, 40),  # Tool position when facing right
-    "up": Vector2(0, -10),  # Tool position when facing up
-    "down": Vector2(0, 50),  # Tool position when facing down
+    "left": Vector2(-50, 40),  # Tool position when facing left (Default: Vector2(-50, 40))
+    "right": Vector2(50, 40),  # Tool position when facing right (Default: Vector2(50, 40))
+    "up": Vector2(0, -10),  # Tool position when facing up (Default: Vector2(0, -10))
+    "down": Vector2(0, 50),  # Tool position when facing down (Default: Vector2(0, 50))
 }
 
 # =============================================================================
@@ -58,17 +58,17 @@ PLAYER_TOOL_OFFSET = {
 # Lower numbers are drawn first (in the background)
 
 LAYERS = {
-    "water": 0,  # Water is drawn first (background)
-    "ground": 1,  # Ground tiles
-    "soil": 2,  # Farmable soil
-    "soil water": 3,  # Wet soil
-    "rain floor": 4,  # Rain effects on ground
-    "house bottom": 5,  # Bottom part of buildings
-    "ground plant": 6,  # Plants growing on ground
-    "main": 7,  # Player and main characters
-    "house top": 8,  # Top part of buildings (roofs)
-    "fruit": 9,  # Harvestable fruits
-    "rain drops": 10,  # Rain drop effects (foreground)
+    "water": 0,  # Water is drawn first (background) (Default: 0)
+    "ground": 1,  # Ground tiles (Default: 1)
+    "soil": 2,  # Farmable soil (Default: 2)
+    "soil water": 3,  # Wet soil (Default: 3)
+    "rain floor": 4,  # Rain effects on ground (Default: 4)
+    "house bottom": 5,  # Bottom part of buildings (Default: 5)
+    "ground plant": 6,  # Plants growing on ground (Default: 6)
+    "main": 7,  # Player and main characters (Default: 7)
+    "house top": 8,  # Top part of buildings (roofs) (Default: 8)
+    "fruit": 9,  # Harvestable fruits (Default: 9)
+    "rain drops": 10,  # Rain drop effects (foreground) (Default: 10)
 }
 
 # =============================================================================
@@ -85,7 +85,7 @@ APPLE_POS = {
         (30, 45),
         (20, 30),
         (30, 10),
-    ],  # Small tree apple spots
+    ],  # Small tree apple spots (Default: six preset coordinates)
     "Large": [
         (30, 24),
         (60, 65),
@@ -93,7 +93,7 @@ APPLE_POS = {
         (16, 40),
         (45, 50),
         (42, 70),
-    ],  # Large tree apple spots
+    ],  # Large tree apple spots (Default: six preset coordinates)
 }
 
 # =============================================================================
@@ -103,16 +103,16 @@ APPLE_POS = {
 
 # Plant growth speeds (lower numbers = faster growth)
 GROW_SPEED = {
-    "corn": 0.1,  # Corn grows relatively fast
-    "tomato": 0.07,  # Tomatoes grow a bit slower
+    "corn": 0.1,  # Corn grows relatively fast (Default: 0.1)
+    "tomato": 0.07,  # Tomatoes grow a bit slower (Default: 0.07)
 }
 
 # How much growth a single night's sleep gives every plant. Sleeping skips a
 # full day, so plants advance much more than during a single gameplay frame.
-DAY_GROWTH = 10
+DAY_GROWTH = 10  # Growth added after sleeping one day (Default: 10)
 
 # @STUDENT-EDIT-Day2-2: Change the player's movement speed (PLAYER_SPEED)
-PLAYER_SPEED = 200
+PLAYER_SPEED = 200  # Player movement speed (Default: 200)
 
 # =============================================================================
 # ECONOMIC SYSTEM - PRICES AND VALUES
@@ -121,16 +121,16 @@ PLAYER_SPEED = 200
 
 # How much money you get for selling each item (tomato is the most valuable)
 SALE_PRICES = {
-    "wood": 4,
-    "apple": 2,
-    "corn": 10,
-    "tomato": 20,
+    "wood": 4,  # Default sale value for wood
+    "apple": 2,  # Default sale value for apples
+    "corn": 10,  # Default sale value for corn
+    "tomato": 20,  # Default sale value for tomatoes
 }
 
 # How much it costs to buy each seed
 PURCHASE_PRICES = {
-    "corn": 4,
-    "tomato": 5,
+    "corn": 4,  # Default seed purchase price for corn
+    "tomato": 5,  # Default seed purchase price for tomatoes
 }
 
 # =============================================================================
@@ -145,13 +145,12 @@ PURCHASE_PRICES = {
 # - dialogue: A list of lines/paragraphs the character says when spoken to
 NPC_DATA = {
     "Robin": {
-        "pos": (800, 400),
-        "graphic": "graphics/objects/merchant.png",  # Placeholder using existing asset
+        "pos": (800, 400),  # Default spawn position
+        "graphic": "graphics/objects/merchant.png",  # Placeholder using existing asset (Default: "graphics/objects/merchant.png")
         "dialogue": [
             "Hi there! Welcome to PyDew Valley!",
             "I'm Robin, a helper NPC created using Python classes.",
             "Try editing settings.py to change what I say, or create your own custom NPC!"
-        ]
+        ]  # Default starter dialogue lines
     }
 }
-
