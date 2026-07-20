@@ -21,7 +21,7 @@ from pygame.math import Vector2
 
 # @STUDENT-EDIT-Day1-3: Change the game window size
 SCREEN_WIDTH = 1280  # Width of game window in pixels (Default: 1280)
-SCREEN_HEIGHT = 720  # Height of game window in pixels (Default: 720)
+SCREEN_HEIGHT = 1020  # Height of game window in pixels (Default: 1020)
 # @STUDENT-EDIT-Day1-2: Customize the game window title (TITLE)
 TITLE = "Sophia's Safari: GAIC 26"  # Game window title text (Default: "PyDew Valley: GAIC 26")
 # @STUDENT-EDIT-Day1-4: Experiment with different background colors
