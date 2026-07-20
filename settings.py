@@ -23,7 +23,7 @@ from pygame.math import Vector2
 SCREEN_WIDTH = 1280  # Width of game window in pixels (Default: 1280)
 SCREEN_HEIGHT = 720  # Height of game window in pixels (Default: 720)
 # @STUDENT-EDIT-Day1-2: Customize the game window title (TITLE)
-TITLE = "PyDew Valley: GAIC 26"  # Game window title text (Default: "PyDew Valley: GAIC 26")
+TITLE = "Sophia's Valley: GAIC 26"  # Game window title text (Default: "PyDew Valley: GAIC 26")
 # @STUDENT-EDIT-Day1-4: Experiment with different background colors
 WATER_COLOR = "#71ddee"  # Hex color code for the water background (Default: "#71ddee")
 TILE_SIZE = 64  # Size of each tile in our game world (pixels) (Default: 64)
