@@ -175,7 +175,7 @@ NPC_DATA = {
         ]  # Default starter dialogue lines
     },
     "Jen": {
-        "pos": (700, 300),  # Default spawn position
+        "pos": (720, 320),  # Default spawn position
         "graphic": "graphics/objects/merchant.png",  # Placeholder using existing asset (Default: "graphics/objects/merchant.png")
         "dialogue": [
             "Hi there! Welcome to Sophia's Island!",
