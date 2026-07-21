@@ -165,21 +165,21 @@ PURCHASE_PRICES = {
 # - graphic: Path to the character's image
 # - dialogue: A list of lines/paragraphs the character says when spoken to
 NPC_DATA = {
-    "Robin": {
+    "Gal": {
         "pos": (800, 400),  # Default spawn position
         "graphic": "graphics/objects/merchant.png",  # Placeholder using existing asset (Default: "graphics/objects/merchant.png")
         "dialogue": [
             "Hi there! Welcome to Sophia's Island!",
-            "I'm Robin, a helper NPC created using Python classes.",
+            "I'm Gal, an islander NPC created using Python classes.",
             "Try editing settings.py to change what I say, or create your own custom NPC!"
         ]  # Default starter dialogue lines
     },
     "Jen": {
-        "pos": (750, 350),  # Default spawn position
+        "pos": (700, 300),  # Default spawn position
         "graphic": "graphics/objects/merchant.png",  # Placeholder using existing asset (Default: "graphics/objects/merchant.png")
         "dialogue": [
             "Hi there! Welcome to Sophia's Island!",
-            "I'm Jen, a helper NPC created using Python classes.",
+            "I'm Jen, an islander NPC created using Python classes.",
             "Try editing settings.py to change what I say, or create your own custom NPC!"
         ]  # Default starter dialogue lines
     }
