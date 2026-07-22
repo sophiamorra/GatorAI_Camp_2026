@@ -165,12 +165,12 @@ PURCHASE_PRICES = {
 # - graphic: Path to the character's image
 # - dialogue: A list of lines/paragraphs the character says when spoken to
 NPC_DATA = {
-    "Robin": {
+    "Ariana": {
         "pos": (800, 400),  # Default spawn position
-        "graphic": "graphics/objects/merchant.png",  # Placeholder using existing asset (Default: "graphics/objects/merchant.png")
+        "graphic": "C:\\Users\\guest.101040\\Desktop\\GatorAI_Camp_2026\\graphics\\objects\\9737398.png",  # Placeholder using existing asset (Default: "graphics/objects/merchant.png")
         "dialogue": [
             "Hi there! Welcome to Sophia's Island!",
-            "I'm Robin, an islander NPC created using Python classes.",
+            "I'm Ariana, an islander NPC created using Python classes.",
             "Try editing settings.py to change what I say, or create your own custom NPC!"
         ]  # Default starter dialogue lines
     },
