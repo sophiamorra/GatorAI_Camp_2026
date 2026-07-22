@@ -209,7 +209,7 @@ class Player(pygame.sprite.Sprite):
 
             # MOVEMENT CONTROLS (vertical)
             # @STUDENT-EDIT-Day2-5: Amend input controls to allow WASD movement using the logical 'or'
-            if keys[pygame.K_UP]:
+            if keys[pygame.K_UP] or keys[pygame.K_s]:
                 self.direction.y = -1
                 self.status = "up"
             elif keys[pygame.K_DOWN]:

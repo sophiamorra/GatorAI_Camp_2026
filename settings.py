@@ -176,7 +176,7 @@ NPC_DATA = {
     },
     "Jen": {
         "pos": (720, 320),  # Default spawn position
-        "graphic": "c:\Users\guest.101040\Desktop\GatorAI_Camp_2026\graphics\character\jen piskel (1).png",  # Placeholder using existing asset (Default: "graphics/objects/merchant.png")  # Placeholder using existing asset (Default: "graphics/objects/merchant.png")
+        "graphic": "graphics/objects/jen piskel (1).png",  # Placeholder using existing asset (Default: "graphics/objects/merchant.png")  # Placeholder using existing asset (Default: "graphics/objects/merchant.png")
         "dialogue": [
             "Hi there! Welcome to Sophia's Island!",
             "I'm Jen, an islander NPC created using Python classes.",
