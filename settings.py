@@ -167,7 +167,7 @@ PURCHASE_PRICES = {
 NPC_DATA = {
     "Ariana": {
         "pos": (800, 400),  # Default spawn position
-        "graphic": "graphics\\objects\\9737398.png",  # Placeholder using existing asset (Default: "graphics/objects/merchant.png")
+        "graphic": "C:\Users\guest.101040\Desktop\GatorAI_Camp_2026\graphics\objects\pixel-anime-blond-girl-cute-student-character-green-skirt-221457120.png",  # Placeholder using existing asset (Default: "graphics/objects/merchant.png")
         "dialogue": [
             "Hi there! Welcome to Sophia's Island!",
             "I'm Ariana, an islander NPC created using Python classes.",
