@@ -85,6 +85,7 @@ class Player(pygame.sprite.Sprite):
             "tool switch": Timer(200),  # Delay between switching tools
             "seed use": Timer(350, self.use_seed),  # How often seeds can be planted
             "seed switch": Timer(200),  # Delay between switching seeds
+            "action": Timer(400), 
         }
         # TOOL SYSTEM - Different tools for different tasks
         self.tools = ["hoe", "axe", "water"]  # Available tools
@@ -182,7 +183,9 @@ class Player(pygame.sprite.Sprite):
             # Using the watering can
             "right_water": [], "left_water": [], "up_water": [], "down_water": [],
             # @STUDENT-EDIT-Day5-2: Add custom animation folder path here (e.g. 'celebrate')
-        }
+            "right_celebrate": [], "left_celebrate": [], "up_celebrate": [], "down_celebrate": [],
+        }    
+        
 
         # Fill each list by loading the matching graphics/character/<state> folder
         for animation in self.animations.keys():
@@ -191,8 +194,8 @@ class Player(pygame.sprite.Sprite):
 
     def animate(self, dt):
         """Advance the current animation by one time-step and show that frame."""
-        # Advance the frame; *4 sets the speed, *dt keeps it framerate-independent
-        self.frame_index += 4 * dt
+        # Advance the frame; *8 makes the celebration feel bouncier and cuter
+        self.frame_index += 8 * dt
 
         # Loop back to the start once we pass the last frame
         if self.frame_index >= len(self.animations[self.status]):
@@ -258,6 +261,12 @@ class Player(pygame.sprite.Sprite):
                 )
                 self.selected_seed = self.seeds[self.seed_index]
 
+            # CELEBRATION ANIMATION - trigger a short cheer with F
+            if keys[pygame.K_f] and not self.timers["action"].active:
+                self.timers["action"].activate()
+                self.direction = pygame.math.Vector2()
+                self.frame_index = 0
+
             # INTERACTION (Enter) - talk to an NPC, else open shop / sleep in bed
             if keys[pygame.K_RETURN]:
                 # NPCs take priority
@@ -279,14 +288,16 @@ class Player(pygame.sprite.Sprite):
                             self.sleep = True
 
     def get_status(self):
-        """Pick the animation state from movement/tool use (e.g. "right" -> "right_idle")."""
-        # Not moving -> idle version of the current facing direction
-        if self.direction.magnitude() == 0:
-            self.status = self.status.split("_")[0] + "_idle"
+        base_status = self.status.split("_")[0]
 
-        # Using a tool -> tool version (e.g. "right" + "hoe" -> "right_hoe")
-        if self.timers["tool use"].active:
-            self.status = self.status.split("_")[0] + "_" + self.selected_tool
+        if self.timers["action"].active:
+            self.status = base_status + "_celebrate"
+        elif self.timers["tool use"].active:
+            self.status = base_status + "_" + self.selected_tool
+        elif self.direction.magnitude() == 0:
+            self.status = base_status + "_idle"
+        else:
+            self.status = base_status
 
     def update_timers(self):
         """Tick every timer so its cooldown counts down."""
