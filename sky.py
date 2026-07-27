@@ -16,7 +16,7 @@ class Sky:
 		self.elapsed_time = 0
 		self.phase = 'day_to_night'  # Initial phase
 		self.weather_active = False
-		self.weather_color = (90, 220, 90)
+		self.weather_color = (120, 180, 120)
 
 	def set_weather(self, active):
 		"""Enable or disable the green weather tint for acid rain."""
@@ -111,5 +111,7 @@ class Rain:
 
 	def update(self):
 		"""Spawn a floor splash and a rain drop for this frame."""
-		self.create_floor()
-		self.create_drops()
+		for _ in range(2):
+			self.create_floor()
+		for _ in range(3):
+			self.create_drops()
