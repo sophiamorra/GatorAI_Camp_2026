@@ -124,6 +124,11 @@ GROW_SPEED = {
     "tomato": 0.07,  # Tomatoes grow a bit slower (Default: 0.07)
 }
 
+# Plant decay settings so crops can rot if they are left dry or exposed to acid rain.
+PLANT_DECAY_RATE = 0.18  # How quickly a dry plant deteriorates per second
+PLANT_RECOVERY_RATE = 0.12  # How quickly a watered plant recovers per second
+PLANT_ROT_THRESHOLD = 8.0  # Decay amount that causes the plant to rot away
+
 # How much growth a single night's sleep gives every plant. Sleeping skips a
 # full day, so plants advance much more than during a single gameplay frame.
 DAY_GROWTH = 10  # Growth added after sleeping one day (Default: 10)

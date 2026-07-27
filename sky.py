@@ -15,6 +15,12 @@ class Sky:
 		self.cycle_duration = 300  # Duration of the day/night cycle in seconds (e.g., 5 minutes)
 		self.elapsed_time = 0
 		self.phase = 'day_to_night'  # Initial phase
+		self.weather_active = False
+		self.weather_color = (90, 220, 90)
+
+	def set_weather(self, active):
+		"""Enable or disable the green weather tint for acid rain."""
+		self.weather_active = active
 
 	def update(self, dt):
 		"""Advance the day/night cycle, easing the tint toward day or night color."""
@@ -36,7 +42,8 @@ class Sky:
 
 	def display(self):
 		"""Multiply the current sky color over the screen."""
-		self.full_surf.fill(self.start_color)
+		color = self.weather_color if self.weather_active else self.start_color
+		self.full_surf.fill(color)
 		self.display_surface.blit(self.full_surf, (0, 0), special_flags=pygame.BLEND_RGBA_MULT)
 
 
@@ -69,17 +76,24 @@ class Drop(Generic):
 
 class Rain:
 	"""Spawns falling rain drops and floor splashes each frame while it's raining."""
-	def __init__(self, all_sprites):
+	def __init__(self, all_sprites, acid_mode=False):
 		"""Load the drop/floor images and the map size for random placement."""
 		self.all_sprites = all_sprites
+		self.acid_mode = acid_mode
 		self.rain_drops = import_folder('./graphics/rain/drops/')
 		self.rain_floor = import_folder('./graphics/rain/floor/')
+		self.acid_assets = import_folder('./graphics/rain/acid_rain/')
 		self.floor_w, self.floor_h =  pygame.image.load('./graphics/world/ground.png').get_size()
+
+	def set_acid_mode(self, acid_mode):
+		"""Switch the weather between regular rain and acid rain."""
+		self.acid_mode = acid_mode
 
 	def create_floor(self):
 		"""Spawn one stationary floor splash at a random spot."""
+		assets = self.acid_assets if self.acid_mode else self.rain_floor
 		Drop(
-			surf = choice(self.rain_floor),
+			surf = choice(assets),
 			pos = (randint(0,self.floor_w),randint(0,self.floor_h)), 
 			moving = False, 
 			groups = self.all_sprites, 
@@ -87,8 +101,9 @@ class Rain:
 
 	def create_drops(self):
 		"""Spawn one moving rain drop at a random spot."""
+		assets = self.acid_assets if self.acid_mode else self.rain_drops
 		Drop(
-			surf = choice(self.rain_drops),
+			surf = choice(assets),
 			pos = (randint(0,self.floor_w),randint(0,self.floor_h)), 
 			moving = True, 
 			groups = self.all_sprites, 

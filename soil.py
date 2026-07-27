@@ -25,7 +25,7 @@ class WaterTile(pygame.sprite.Sprite):
 
 class Plant(pygame.sprite.Sprite):
 	"""A growing crop that ages while watered and becomes harvestable when mature."""
-	def __init__(self, plant_type, groups, soil, check_watered):
+	def __init__(self, plant_type, groups, soil, check_watered, soil_layer):
 		"""Set up the plant's frames, growth speed, and starting (seed) image."""
 		super().__init__(groups)
 
@@ -35,12 +35,15 @@ class Plant(pygame.sprite.Sprite):
 		self.frames = import_folder(os.path.join(base_path, 'graphics/fruit', plant_type))
 		self.soil = soil
 		self.check_watered = check_watered
+		self.soil_layer = soil_layer
 
 		# plant growing 
 		self.age = 0
 		self.max_age = len(self.frames) - 1
 		self.grow_speed = GROW_SPEED[plant_type]  # Set grow speed based on plant type
 		self.harvestable = False
+		self.alive = True
+		self.decay = 0.0
 
 		# sprite setup
 		self.image = self.frames[self.age]
@@ -48,21 +51,42 @@ class Plant(pygame.sprite.Sprite):
 		self.rect = self.image.get_rect(midbottom = soil.rect.midbottom + pygame.math.Vector2(0,self.y_offset))
 		self.z = LAYERS['ground plant']
 
-	def grow(self, dt):
+	def die(self):
+		"""Remove the plant from the grid and delete it when it rots away."""
+		if not self.alive:
+			return
+
+		self.alive = False
+		cell = self.soil_layer.grid[self.rect.centery // TILE_SIZE][self.rect.centerx // TILE_SIZE]
+		if 'P' in cell:
+			cell.remove('P')
+		self.kill()
+
+	def grow(self, dt, watered=False, acid_rain=False):
 		"""Age the plant while its soil is watered; mark harvestable when fully grown."""
-		if self.check_watered(self.rect.center):
-			self.age += self.grow_speed * dt  # Increment age by grow speed multiplied by delta time
+		if not self.alive:
+			return
 
-			if int(self.age) > 0:
-				self.z = LAYERS['main']
-				self.hitbox = self.rect.copy().inflate(-26,-self.rect.height * 0.4)
+		if watered:
+			self.age += self.grow_speed * dt
+			self.decay = max(0.0, self.decay - PLANT_RECOVERY_RATE * dt)
+		else:
+			self.age += self.grow_speed * dt * 0.7
+			self.decay += (PLANT_DECAY_RATE + (0.12 if acid_rain else 0.0)) * dt
 
-			if self.age >= self.max_age:
-				self.age = self.max_age
-				self.harvestable = True
+		if int(self.age) > 0:
+			self.z = LAYERS['main']
+			self.hitbox = self.rect.copy().inflate(-26,-self.rect.height * 0.4)
 
-			self.image = self.frames[int(self.age)]
-			self.rect = self.image.get_rect(midbottom = self.soil.rect.midbottom + pygame.math.Vector2(0,self.y_offset))
+		if self.age >= self.max_age:
+			self.age = self.max_age
+			self.harvestable = True
+
+		self.image = self.frames[int(self.age)]
+		self.rect = self.image.get_rect(midbottom = self.soil.rect.midbottom + pygame.math.Vector2(0,self.y_offset))
+
+		if self.decay >= PLANT_ROT_THRESHOLD:
+			self.die()
 
 class SoilLayer:
 	"""Manages the farmable grid: tilling, watering, planting, and plant growth."""
@@ -74,6 +98,8 @@ class SoilLayer:
 		self.soil_sprites = pygame.sprite.Group()
 		self.water_sprites = pygame.sprite.Group()
 		self.plant_sprites = pygame.sprite.Group()
+		self.raining = False
+		self.acid_rain = False
 
 		# graphics
 		self.soil_surfs = import_folder_dict('graphics/soil/')
@@ -179,7 +205,7 @@ class SoilLayer:
 
 				if 'P' not in self.grid[y][x]:
 					self.grid[y][x].append('P')
-					Plant(seed, [self.all_sprites, self.plant_sprites, self.collision_sprites], soil_sprite, self.check_watered)
+					Plant(seed, [self.all_sprites, self.plant_sprites, self.collision_sprites], soil_sprite, self.check_watered, self)
 
 	def update_plants(self, dt=None):
 		"""Grow all plants. With no `dt` (sleeping), advance a full day; else by `dt`."""
@@ -188,7 +214,8 @@ class SoilLayer:
 		# the Level passes the per-frame delta time so plants grow gradually.
 		grow_amount = dt if dt is not None else DAY_GROWTH
 		for plant in self.plant_sprites.sprites():
-			plant.grow(grow_amount)
+			watered = self.check_watered(plant.rect.center)
+			plant.grow(grow_amount, watered=watered, acid_rain=self.acid_rain)
 
 	def create_soil_tiles(self):
 		"""Rebuild all soil tile sprites, choosing each tile's edge variant from neighbors."""

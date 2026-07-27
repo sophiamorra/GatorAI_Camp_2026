@@ -79,10 +79,12 @@ class Level:
 
         # WEATHER SYSTEM
         # Create rain and sky systems for environmental variety
-        self.rain = Rain(self.all_sprites)
         self.raining = randint(0, 10) > 7  # 30% chance of rain
+        self.rain = Rain(self.all_sprites, acid_mode=self.raining)
         self.soil_layer.raining = self.raining  # Tell soil system about rain
+        self.soil_layer.acid_rain = self.raining
         self.sky = Sky()  # Day/night color overlay
+        self.sky.set_weather(self.raining)
 
         # SHOP AND DIALOGUE SYSTEM - trading menu plus the dialogue box
         self.menu = TraderMenu(self.player, self.open_trader_menu)
@@ -297,6 +299,9 @@ class Level:
         self.soil_layer.remove_water()
         self.raining = randint(0, 10) > 7  # New random weather
         self.soil_layer.raining = self.raining
+        self.soil_layer.acid_rain = self.raining
+        self.rain.set_acid_mode(self.raining)
+        self.sky.set_weather(self.raining)
         if self.raining:
             self.soil_layer.water_all()  # Rain waters all soil
 
